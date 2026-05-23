@@ -20,6 +20,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.Body
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreenUiState
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
 class MainActivity : ComponentActivity() {
@@ -57,10 +59,12 @@ fun TarotOfPoe1App() {
         }
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Greeting(
-                name = "Android",
-                modifier = Modifier.padding(innerPadding)
-            )
+            Body(
+                uiState = LoginScreenUiState(),
+                onUserNameChange = {  },
+                onPasswordChange = { },
+                onUserRegister = {  },
+            ) { }
         }
     }
 }
@@ -72,20 +76,4 @@ enum class AppDestinations(
     HOME("Home", R.drawable.ic_home),
     FAVORITES("Favorites", R.drawable.ic_favorite),
     PROFILE("Profile", R.drawable.ic_account_box),
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TarotOfPoe1Theme {
-        Greeting("Android")
-    }
 }

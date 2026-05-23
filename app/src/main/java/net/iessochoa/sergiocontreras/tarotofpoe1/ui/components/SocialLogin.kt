@@ -41,7 +41,7 @@ fun SocialLogin() {
             text = stringResource(R.string.login_with_google),
             fontStyle = FontStyle.Italic,
             modifier = Modifier
-                .padding(horizontal = 8.dp)
+                .padding(horizontal = Spacing.sm)
         )
     }
 }
