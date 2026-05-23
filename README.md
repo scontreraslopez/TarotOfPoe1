@@ -6,7 +6,7 @@ Aplicación Android que actúa como **catálogo / browser de las Divination Card
 
 Las Divination Cards tienen un arte espectacular, son muchas y es importante saber como conseguirlas.
 
-[https://www.poewiki.net/wiki/File:Apocalypse_card_art.png](https://www.poewiki.net/wiki/File:Apocalypse_card_art.png)
+![https://www.poewiki.net/wiki/File:Apocalypse_card_art.png](https://www.poewiki.net/wiki/File:Apocalypse_card_art.png)
 
 ## Contexto
 
