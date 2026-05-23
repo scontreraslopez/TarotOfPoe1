@@ -4,6 +4,10 @@
 
 Aplicación Android que actúa como **catálogo / browser de las Divination Cards de Path of Exile 1**. Permite explorar las cartas, consultar sus recompensas y detalles asociados.
 
+Las Divination Cards tienen un arte espectacular, son muchas y es importante saber como conseguirlas.
+
+[https://www.poewiki.net/wiki/File:Apocalypse_card_art.png](https://www.poewiki.net/wiki/File:Apocalypse_card_art.png)
+
 ## Contexto
 
 Proyecto desarrollado en el marco del curso **"Programación Avanzada con Jetpack Compose y Kotlin"**.
