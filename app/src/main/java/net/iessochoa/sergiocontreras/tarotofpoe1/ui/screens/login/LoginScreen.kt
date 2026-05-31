@@ -74,7 +74,7 @@ fun LoginScreen(
                 onUserNameChange = {},
                 onPasswordChange = { },
                 onUserRegister = { } ,
-                onUserLogin = {}
+                onUserLogin = { onLoginSuccess(uiState.username) }
             )
             Footer(Modifier.align(Alignment.BottomCenter))
         }
