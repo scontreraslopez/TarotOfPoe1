@@ -16,11 +16,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
+import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.CardRepository
+import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListScreen
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListViewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
 @Composable
-fun HomeScreen(userName: String) {
+fun HomeScreen(
+    userName: String,
+    repository: CardRepository,
+    onCardClick: (String) -> Unit,
+) {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
 
     NavigationSuiteScaffold(
@@ -41,15 +50,31 @@ fun HomeScreen(userName: String) {
         }
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Box(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "${currentDestination.label} — $userName")
+            val contentModifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+            when (currentDestination) {
+                AppDestinations.HOME -> {
+                    val listViewModel: CardListViewModel =
+                        viewModel { CardListViewModel(repository) }
+                    CardListScreen(
+                        viewModel = listViewModel,
+                        onCardClick = onCardClick,
+                        modifier = contentModifier,
+                    )
+                }
+
+                AppDestinations.FAVORITES -> Placeholder("Favorites", userName, contentModifier)
+                AppDestinations.PROFILE -> Placeholder("Profile", userName, contentModifier)
             }
         }
+    }
+}
+
+@Composable
+private fun Placeholder(label: String, userName: String, modifier: Modifier = Modifier) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+        Text(text = "$label — $userName")
     }
 }
 
@@ -65,7 +90,11 @@ enum class AppDestinations(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    TarotOfPoe1Theme() {
-        HomeScreen("Sergio")
+    TarotOfPoe1Theme {
+        HomeScreen(
+            userName = "Sergio",
+            repository = DummyCardRepository(),
+            onCardClick = {},
+        )
     }
 }
