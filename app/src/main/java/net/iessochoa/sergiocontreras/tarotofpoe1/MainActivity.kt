@@ -17,10 +17,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewScreenSizes
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.Body
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreen
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreenUiState
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
@@ -59,12 +57,10 @@ fun TarotOfPoe1App() {
         }
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-            Body(
+            LoginScreen(
                 uiState = LoginScreenUiState(),
-                onUserNameChange = {  },
-                onPasswordChange = { },
-                onUserRegister = {  },
-            ) { }
+                modifier = Modifier.padding(innerPadding)
+            )
         }
     }
 }

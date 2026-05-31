@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -28,9 +29,12 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
 @Composable
 fun SocialLogin() {
-    Row(modifier = Modifier.clickable {
-        // Acción para loguearse con Google
-    }) {
+    Row(
+        modifier = Modifier.clickable {
+            // Acción para loguearse con Google
+        },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             modifier = Modifier
                 .size(Spacing.lg),

@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.ComponentSizes
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
@@ -28,8 +27,8 @@ fun UserName(userName: String, isLoginError: Boolean, updateUserName: (String) -
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                horizontal = ComponentSizes.buttonWidth,
-                vertical = ComponentSizes.buttonHeight
+                horizontal = Spacing.xl,
+                vertical = Spacing.sm
             ),
         value = userName,
         onValueChange = { updateUserName(it) },

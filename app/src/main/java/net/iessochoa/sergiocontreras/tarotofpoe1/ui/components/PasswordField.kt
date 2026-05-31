@@ -21,7 +21,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.ComponentSizes
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
@@ -41,8 +40,8 @@ fun Password(password: String, isLoginError: Boolean, updatePassword: (String) -
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                horizontal = ComponentSizes.buttonWidth,
-                vertical = ComponentSizes.buttonHeight
+                horizontal = Spacing.xl,
+                vertical = Spacing.sm
             ),
         value = password,
         onValueChange = { updatePassword(it) },

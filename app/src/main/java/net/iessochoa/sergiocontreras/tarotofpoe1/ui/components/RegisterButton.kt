@@ -1,16 +1,12 @@
 package net.iessochoa.sergiocontreras.tarotofpoe1.ui.components
 
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.ComponentSizes
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
 /**
@@ -22,9 +18,12 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
  */
 
 @Composable
-fun RegisterButton(onRegisterButtonClick: () -> Unit) {
+fun RegisterButton(
+    onRegisterButtonClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Button(
-        modifier = Modifier.width(ComponentSizes.buttonWidth),
+        modifier = modifier,
         onClick = {
             onRegisterButtonClick()
         }) {
@@ -36,6 +35,6 @@ fun RegisterButton(onRegisterButtonClick: () -> Unit) {
 @Composable
 private fun RegisterButtonPreview() {
     TarotOfPoe1Theme() {
-        RegisterButton {  }
+        RegisterButton(onRegisterButtonClick = {})
     }
 }

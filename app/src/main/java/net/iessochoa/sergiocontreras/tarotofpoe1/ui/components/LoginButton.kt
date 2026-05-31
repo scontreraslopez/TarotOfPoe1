@@ -1,13 +1,10 @@
 package net.iessochoa.sergiocontreras.tarotofpoe1.ui.components
 
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.ComponentSizes
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
 /**
@@ -19,9 +16,13 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
  */
 
 @Composable
-fun LoginButton(isLoginEnable: Boolean, doLogin: () -> Unit) {
+fun LoginButton(
+    isLoginEnable: Boolean,
+    doLogin: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Button(
-        modifier = Modifier.width(ComponentSizes.buttonWidth),
+        modifier = modifier,
         onClick = { doLogin() },
         enabled = isLoginEnable
     ) {
