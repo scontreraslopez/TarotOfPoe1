@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "597040288188",
+    "project_id": "tarot-of-poe1",
+    "storage_bucket": "tarot-of-poe1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597040288188:android:262b21abc55b400f201bb9",
+        "android_client_info": {
+          "package_name": "net.iessochoa.sergiocontreras.tarotofpoe1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa1L2dnv0zL0lG9Ipa56Y42nH6RhswR5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

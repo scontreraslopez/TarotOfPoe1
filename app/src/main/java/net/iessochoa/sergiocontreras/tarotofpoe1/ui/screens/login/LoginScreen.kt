@@ -47,6 +47,7 @@ import kotlin.system.exitProcess
 @Composable
 fun LoginScreen(
     uiState: LoginScreenUiState,
+    onLoginSuccess: (String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
