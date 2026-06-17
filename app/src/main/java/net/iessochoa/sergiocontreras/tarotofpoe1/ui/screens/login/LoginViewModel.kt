@@ -19,4 +19,16 @@ class LoginViewModel(): ViewModel() {
     private val _uiState = MutableStateFlow(LoginScreenUiState())
     val uiState: StateFlow<LoginScreenUiState> = _uiState.asStateFlow()
 
+    fun onUsernameChange(value: String) {
+        //TODO actualiza _uiState y recalcula isLoginEnabled
+    }
+
+    fun onPasswordChange(value: String) {
+        //TODO actualiza _uiState y recalcula isLoginEnabled
+    }
+
+    fun login(onSuccess: (String) -> Unit) {
+        //TODO llama a FirebaseAuth.getInstance().signInWithEmailAndPassword(...) dentro de viewModelScope.launch, gestiona loading/error
+    }
+
 }

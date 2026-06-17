@@ -1,7 +1,9 @@
 package net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -15,6 +17,7 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.carddetail.CardDetai
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.home.HomeScreen
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreen
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreenUiState
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginViewModel
 
 /**
  * Project: TarotOfPoe1
@@ -24,7 +27,13 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreenUiS
  */
 
 @Composable
-fun NavigationRoot() {
+fun NavigationRoot(
+) {
+
+    val viewModel: LoginViewModel = viewModel()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+
     val repository = remember { DummyCardRepository() }
     val backStack = rememberNavBackStack(Login)
 
@@ -34,9 +43,8 @@ fun NavigationRoot() {
         entryProvider = entryProvider {
             entry<Login> {
                 LoginScreen(
-                    uiState = LoginScreenUiState(),
-                    onLoginSuccess = { userName -> backStack.add(Home(userName)) }
-                )
+                    uiState = uiState,
+                ) { userName -> backStack.add(Home(userName)) }
             }
             entry<Home> { key ->
                 HomeScreen(

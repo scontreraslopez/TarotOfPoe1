@@ -13,5 +13,6 @@ data class LoginScreenUiState(
     val username: String = "",
     val password: String = "",
     val isLoginEnabled: Boolean = false,
-    val isLoginError: Boolean = false
+    val isLoginError: Boolean = false,
+    val isLoading: Boolean = false
 )
