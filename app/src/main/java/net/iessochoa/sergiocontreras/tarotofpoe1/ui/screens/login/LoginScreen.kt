@@ -68,7 +68,7 @@ fun LoginScreen(
         Box(modifier = Modifier
             .fillMaxWidth()
             .weight(1f),
-            contentAlignment = Alignment.Center) {
+            contentAlignment = Alignment.TopCenter) {
             Body(
                 uiState = uiState,
                 onUserNameChange = {},
@@ -119,6 +119,7 @@ private fun Body(
             isLoginError = isLoginError,
             updatePassword = onPasswordChange
         )
+        Spacer(modifier = Modifier.padding(vertical = Spacing.md))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
