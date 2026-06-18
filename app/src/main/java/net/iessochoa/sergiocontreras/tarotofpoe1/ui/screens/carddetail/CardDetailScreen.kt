@@ -24,12 +24,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
+import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.Acquisition
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -146,5 +149,23 @@ private fun NotFoundState(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "Card not found")
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CardDetailScreenPreview() {
+    val repository = DummyCardRepository()
+    val cardId = "a-chilling-wind"
+    val viewModel = CardDetailViewModel(
+        repository = repository,
+        cardId = cardId
+    )
+    
+    TarotOfPoe1Theme() { 
+        CardDetailScreen(
+            viewModel = TODO(),
+            onBack = {}
+        )
     }
 }

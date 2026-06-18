@@ -1,6 +1,7 @@
 package net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.carddetail
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,6 +25,18 @@ class CardDetailViewModel(
                 card = repository.getCard(cardId),
                 isLoading = false,
             )
+        }
+    }
+
+    // Para inyección de dependencias manual este companion object es el de siempre
+    companion object {
+        fun provideFactory(
+            repository: CardRepository,
+            cardId: String,
+        ): ViewModelProvider.Factory = object: ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T: ViewModel> create(modelClass: Class<T>): T =
+                CardDetailViewModel(repository, cardId) as T
         }
     }
 }
