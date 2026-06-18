@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.CardRepository
+import net.iessochoa.sergiocontreras.tarotofpoe1.domain.repository.CardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
 
 

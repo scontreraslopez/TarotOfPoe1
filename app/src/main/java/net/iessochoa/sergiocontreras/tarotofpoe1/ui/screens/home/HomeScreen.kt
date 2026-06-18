@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
-import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.CardRepository
+import net.iessochoa.sergiocontreras.tarotofpoe1.domain.repository.CardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListScreen
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListUiState

@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
-import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.Acquisition
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCardSamples

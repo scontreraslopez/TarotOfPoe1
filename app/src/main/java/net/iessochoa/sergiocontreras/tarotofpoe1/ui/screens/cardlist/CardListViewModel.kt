@@ -9,9 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.CardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.carddetail.CardDetailViewModel
+import net.iessochoa.sergiocontreras.tarotofpoe1.domain.repository.CardRepository
 
 
 class CardListViewModel(

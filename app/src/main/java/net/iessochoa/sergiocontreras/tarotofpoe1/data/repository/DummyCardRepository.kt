@@ -2,6 +2,7 @@ package net.iessochoa.sergiocontreras.tarotofpoe1.data.repository
 
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCardSamples
+import net.iessochoa.sergiocontreras.tarotofpoe1.domain.repository.CardRepository
 
 /**
  * In-memory fallback backed by [DivinationCardSamples]. Swap for the real
