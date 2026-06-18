@@ -41,6 +41,7 @@ fun NavigationRoot(
         Ahora cada pantalla controla su propio TopAppBar, FAB, BottomBar, etc
         Si en algún momento necesitas una bottom nav global (compartida entre varias pantallas), Navigation3 lo resuelve con Scenes
      */
+
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeAt(backStack.lastIndex) },
@@ -62,11 +63,15 @@ fun NavigationRoot(
                 )
             }
             entry<Detail> { key ->
+                val cardDetailViewModel: CardDetailViewModel = viewModel(
+                    key = key.cardId,
+                    factory = CardDetailViewModel.provideFactory(repository, key.cardId)
+                )
+
+                val cardDetailUiState by cardDetailViewModel.uiState.collectAsStateWithLifecycle()
+
                 CardDetailScreen(
-                    viewModel = viewModel(
-                        key = key.cardId,
-                        factory = CardDetailViewModel.provideFactory(repository, key.cardId)
-                    ),
+                    uiState = cardDetailUiState,
                     onBack = { backStack.removeAt(backStack.lastIndex) },
                 )
             }
