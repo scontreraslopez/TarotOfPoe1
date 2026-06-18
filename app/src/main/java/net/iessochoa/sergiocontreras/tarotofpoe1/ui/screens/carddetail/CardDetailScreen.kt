@@ -31,17 +31,17 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.R
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.Acquisition
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
+import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCardSamples
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardDetailScreen(
-    viewModel: CardDetailViewModel,
+    uiState: CardDetailUiState,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
         modifier = modifier,
@@ -63,7 +63,7 @@ fun CardDetailScreen(
             uiState.isLoading -> LoadingState(Modifier.padding(innerPadding))
             uiState.card == null -> NotFoundState(Modifier.padding(innerPadding))
             else -> CardDetailContent(
-                card = uiState.card!!,
+                card = uiState.card,
                 modifier = Modifier.padding(innerPadding),
             )
         }
@@ -155,16 +155,15 @@ private fun NotFoundState(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun CardDetailScreenPreview() {
-    val repository = DummyCardRepository()
+
     val cardId = "a-chilling-wind"
-    val viewModel = CardDetailViewModel(
-        repository = repository,
-        cardId = cardId
-    )
-    
-    TarotOfPoe1Theme() { 
+
+    TarotOfPoe1Theme {
         CardDetailScreen(
-            viewModel = TODO(),
+            uiState = CardDetailUiState(
+                card = DivinationCardSamples.all.firstOrNull { it.id == cardId },
+                isLoading = false,
+            ),
             onBack = {}
         )
     }

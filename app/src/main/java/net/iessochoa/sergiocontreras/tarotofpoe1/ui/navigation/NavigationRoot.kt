@@ -63,9 +63,10 @@ fun NavigationRoot(
             }
             entry<Detail> { key ->
                 CardDetailScreen(
-                    viewModel = viewModel(key = key.cardId) {
-                        CardDetailViewModel(repository, key.cardId)
-                    },
+                    viewModel = viewModel(
+                        key = key.cardId,
+                        factory = CardDetailViewModel.provideFactory(repository, key.cardId)
+                    ),
                     onBack = { backStack.removeAt(backStack.lastIndex) },
                 )
             }

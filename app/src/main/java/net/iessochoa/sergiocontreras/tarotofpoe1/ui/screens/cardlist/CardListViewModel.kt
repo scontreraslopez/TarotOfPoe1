@@ -1,6 +1,7 @@
 package net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -10,12 +11,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.CardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.carddetail.CardDetailViewModel
 
-data class CardListUiState(
-    val query: String = "",
-    val cards: List<DivinationCard> = emptyList(),
-    val isLoading: Boolean = true,
-)
 
 class CardListViewModel(
     private val repository: CardRepository,
@@ -51,5 +48,16 @@ class CardListViewModel(
         val q = query.trim()
         return name.contains(q, ignoreCase = true) ||
             acquisition.areaRestrictions.any { it.contains(q, ignoreCase = true) }
+    }
+
+    // Para inyección de dependencias manual este companion object es el de siempre
+    companion object {
+        fun provideFactory(
+            repository: CardRepository,
+        ): ViewModelProvider.Factory = object: ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T: ViewModel> create(modelClass: Class<T>): T =
+                CardListViewModel(repository) as T
+        }
     }
 }

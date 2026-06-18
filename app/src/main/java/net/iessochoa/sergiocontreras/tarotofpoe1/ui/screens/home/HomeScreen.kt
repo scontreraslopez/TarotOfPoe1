@@ -16,11 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.CardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListScreen
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListUiState
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListViewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 
@@ -55,12 +57,21 @@ fun HomeScreen(
                 .fillMaxSize()
             when (currentDestination) {
                 AppDestinations.HOME -> {
-                    val listViewModel: CardListViewModel =
-                        viewModel { CardListViewModel(repository) }
+
+                    //val listViewModel: CardListViewModel =
+                    //  viewModel { CardListViewModel(repository) } Esto es trucazo no-factory
+
+                    val listViewModel: CardListViewModel = viewModel(
+                        factory = CardListViewModel.provideFactory(repository)
+                    )
+
+                    val listScreenUiState by listViewModel.uiState.collectAsStateWithLifecycle()
+
                     CardListScreen(
-                        viewModel = listViewModel,
+                        uiState = listScreenUiState,
+                        onQueryChange = listViewModel::onQueryChange, // o { listViewModel.onQueryChange(it) }
                         onCardClick = onCardClick,
-                        modifier = contentModifier,
+                        modifier = contentModifier
                     )
                 }
 
