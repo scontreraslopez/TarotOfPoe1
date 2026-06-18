@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 /**
  * Project: TarotOfPoe1
@@ -20,11 +21,21 @@ class LoginViewModel(): ViewModel() {
     val uiState: StateFlow<LoginScreenUiState> = _uiState.asStateFlow()
 
     fun onUsernameChange(value: String) {
-        //TODO actualiza _uiState y recalcula isLoginEnabled
+        _uiState.update { currentState ->
+            currentState.copy(
+                username = value,
+                isLoginEnabled = value.isNotBlank() && currentState.password.isNotBlank()
+            )
+        }
     }
 
     fun onPasswordChange(value: String) {
-        //TODO actualiza _uiState y recalcula isLoginEnabled
+        _uiState.update { currentState ->
+            currentState.copy(
+                password = value,
+                isLoginEnabled = currentState.username.isNotBlank() && value.isNotBlank()
+            )
+        }
     }
 
     fun login(onSuccess: (String) -> Unit) {
