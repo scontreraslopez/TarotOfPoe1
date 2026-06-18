@@ -47,7 +47,7 @@ import kotlin.system.exitProcess
 @Composable
 fun LoginScreen(
     uiState: LoginScreenUiState,
-    onUserNameChange: (String) -> Unit,
+    onUsernameChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onUserLogin: () -> Unit,
     onUserRegister: () -> Unit,
@@ -74,7 +74,7 @@ fun LoginScreen(
             contentAlignment = Alignment.TopCenter) {
             Body(
                 uiState = uiState,
-                onUserNameChange = onUserNameChange,
+                onUserNameChange = onUsernameChange,
                 onPasswordChange = onPasswordChange,
                 onUserRegister = onUserRegister,
                 onUserLogin = onUserLogin
@@ -182,7 +182,7 @@ private fun LoginPreview() {
     TarotOfPoe1Theme() {
         LoginScreen(
             uiState = LoginScreenUiState(),
-            onUserNameChange = { },
+            onUsernameChange = { },
             onPasswordChange = { },
             onUserLogin = { },
             onUserRegister = { }

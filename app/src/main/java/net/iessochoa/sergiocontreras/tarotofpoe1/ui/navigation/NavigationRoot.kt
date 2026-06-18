@@ -16,7 +16,6 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.carddetail.CardDetai
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.carddetail.CardDetailViewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.home.HomeScreen
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreen
-import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginScreenUiState
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginViewModel
 
 /**
@@ -30,21 +29,30 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginViewModel
 fun NavigationRoot(
 ) {
 
-    val viewModel: LoginViewModel = viewModel()
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
+    val loginViewModel: LoginViewModel = viewModel()
+    val loginUiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
     val repository = remember { DummyCardRepository() }
     val backStack = rememberNavBackStack(Login)
 
+
+    /*
+        Con Navigation3 ya no usamos el Scaffold
+        Ahora cada pantalla controla su propio TopAppBar, FAB, BottomBar, etc
+        Si en algún momento necesitas una bottom nav global (compartida entre varias pantallas), Navigation3 lo resuelve con Scenes
+     */
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeAt(backStack.lastIndex) },
         entryProvider = entryProvider {
             entry<Login> {
                 LoginScreen(
-                    uiState = uiState,
-                ) { userName -> backStack.add(Home(userName)) }
+                    uiState = loginUiState,
+                    onUsernameChange = loginViewModel::onUsernameChange, //Esto es lo mismo que{ loginViewModel.onUsernameChange(it) }
+                    onPasswordChange = loginViewModel::onPasswordChange,
+                    onUserLogin = { backStack.add(Home(loginUiState.username)) }, //TODO: Falta aquí gestionar el Firebase
+                    onUserRegister = { /* TODO Handle registration logic */ },
+                )
             }
             entry<Home> { key ->
                 HomeScreen(

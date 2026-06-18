@@ -9,10 +9,6 @@ import kotlinx.coroutines.launch
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.CardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
 
-data class CardDetailUiState(
-    val card: DivinationCard? = null,
-    val isLoading: Boolean = true,
-)
 
 class CardDetailViewModel(
     private val repository: CardRepository,
