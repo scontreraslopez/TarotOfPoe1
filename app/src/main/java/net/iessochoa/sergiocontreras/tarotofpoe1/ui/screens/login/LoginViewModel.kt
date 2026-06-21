@@ -50,13 +50,12 @@ class LoginViewModel(
     // ✓ onSuccess invocado con el email del usuario logado
     // ✓ isLoginError actualizado en UiState cuando falla
     // ✓ onUserLogin conectado en NavigationRoot llamando a login() con email real de Firebase
-    // TODO: Implementar registerUser() con auth.createUserWithEmailAndPassword (ver código comentado al final)
+    // ✓ registerUser() implementado con auth.createUserWithEmailAndPassword
     // TODO: Mostrar el error isLoginError en la UI (LoginScreen) con un mensaje o snackbar
     // TODO: Resetear isLoginError a false cuando el usuario empiece a escribir de nuevo
     fun login(onSuccess: (String) -> Unit) {
 
         _uiState.update { it.copy(isLoading = true) }
-
 
         val username = _uiState.value.username
         val password = _uiState.value.password
@@ -88,39 +87,37 @@ class LoginViewModel(
 
 
 
-    /*
+    // ✓ onSuccess recibe el email del usuario registrado y se invoca al completar
+    // ✓ isLoginError actualizado en UiState cuando el registro falla
+    // TODO: esto todavía no se está usando
+    fun registerUser(onSuccess: (String) -> Unit) {
 
+        _uiState.update { it.copy(isLoading = true) }
 
-    fun registerUser() {
-        auth.createUserWithEmailAndPassword(
-            _userName.value.toString(),
-            _password.value.toString()
-        ).addOnCompleteListener { result ->
-            Log.i(
-                "Register button",
-                if (result.isSuccessful)
-                    "User registered with ID: ${auth.currentUser?.uid}"
-                else
-                    "Registry failed ${result.exception.toString()}"
-            )
-        }
-    }
+        val username = _uiState.value.username
+        val password = _uiState.value.password
 
-    fun loginUser() {
-        auth.signInWithEmailAndPassword(
-            _userName.value.toString(),
-            _password.value.toString()
-        ).addOnCompleteListener {
-            if(it.isSuccessful) {
-                Log.i("Login button", "User logged: ${auth.currentUser?.email}")
-                navigateToHome(_userName.value.toString())
-            } else {
-                Log.i("Login button", "User login failed: ${it.exception.toString()}")
-                _isLoginError.value = true
+        viewModelScope.launch {
+            auth.createUserWithEmailAndPassword(
+                username,
+                password
+            ).addOnCompleteListener { task ->
+                _uiState.update { it.copy(isLoading = false) }
+                if(task.isSuccessful) {
+                    Log.i(
+                        "Register button", "User registered with ID: ${auth.currentUser?.uid}"
+                    )
+                    onSuccess(auth.currentUser?.email ?: username)
+                } else {
+                    Log.i("Register button", "User registration failed: ${task.exception.toString()}")
+                    _uiState.update { currentState ->
+                        currentState.copy(
+                            isLoginError = true
+                        )
+                    }
+                }
             }
+
         }
     }
-
-
-     */
 }
