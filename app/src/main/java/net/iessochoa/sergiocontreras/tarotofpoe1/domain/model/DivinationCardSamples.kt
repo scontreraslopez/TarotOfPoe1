@@ -31,6 +31,7 @@ object DivinationCardSamples {
             dropLevel = 1,
             areaRestrictions = emptyList(),
         ),
+        artUrl = "https://www.poewiki.net/images/7/70/A_Chilling_Wind_card_art.png"
     )
 
     val theVoid = DivinationCard(
@@ -44,6 +45,7 @@ object DivinationCardSamples {
             dropLevel = 1,
             areaRestrictions = emptyList(),
         ),
+        artUrl = "https://www.poewiki.net/images/3/35/The_Void_card_art.png"
     )
 
     val all: List<DivinationCard> = listOf(aChillingWind, theGambler, theVoid)

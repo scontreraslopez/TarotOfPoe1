@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.google.firebase.auth.FirebaseAuth
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Detail
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Home
@@ -29,12 +30,15 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login.LoginViewModel
 fun NavigationRoot(
 ) {
 
-    val loginViewModel: LoginViewModel = viewModel()
+    // La forma moderna de inyectar dependencias, mejor que el factory
+    val loginViewModel: LoginViewModel = viewModel {
+        LoginViewModel(FirebaseAuth.getInstance())
+    }
+
     val loginUiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
     val repository = remember { DummyCardRepository() }
     val backStack = rememberNavBackStack(Login)
-
 
     /*
         Con Navigation3 ya no usamos el Scaffold
@@ -51,7 +55,9 @@ fun NavigationRoot(
                     uiState = loginUiState,
                     onUsernameChange = loginViewModel::onUsernameChange, //Esto es lo mismo que{ loginViewModel.onUsernameChange(it) }
                     onPasswordChange = loginViewModel::onPasswordChange,
-                    onUserLogin = { backStack.add(Home(loginUiState.username)) }, //TODO: Falta aquí gestionar el Firebase
+                    onUserLogin = { backStack.add(Home(loginUiState.username)) },
+                    // TODO: Conectar onUserLogin en NavigationRoot para que llame a login() pasando el backStack como onSuccess
+                    //TODO: Falta aquí gestionar el Firebase
                     onUserRegister = { /* TODO Handle registration logic */ },
                 )
             }
