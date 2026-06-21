@@ -28,7 +28,9 @@ class CardDetailViewModel(
         }
     }
 
-    // Para inyección de dependencias manual este companion object es el de siempre
+    // TODO: Migrar a lambda factory. Eliminar este companion object y en NavigationRoot sustituir
+    //  factory = CardDetailViewModel.provideFactory(repository, key.cardId)
+    //  por: viewModel(key = key.cardId) { CardDetailViewModel(repository, key.cardId) }
     companion object {
         fun provideFactory(
             repository: CardRepository,

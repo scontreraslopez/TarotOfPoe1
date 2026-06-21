@@ -49,7 +49,9 @@ class CardListViewModel(
             acquisition.areaRestrictions.any { it.contains(q, ignoreCase = true) }
     }
 
-    // Para inyección de dependencias manual este companion object es el de siempre
+    // TODO: Migrar a lambda factory. Eliminar este companion object y en HomeScreen sustituir
+    //  factory = CardListViewModel.provideFactory(repository)
+    //  por: viewModel { CardListViewModel(repository) }
     companion object {
         fun provideFactory(
             repository: CardRepository,

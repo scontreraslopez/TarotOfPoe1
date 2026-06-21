@@ -1,7 +1,9 @@
 package net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.login
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +17,9 @@ import kotlinx.coroutines.flow.update
  * Creado en Settings -> Editor -> File and Code Templates
  */
 
-class LoginViewModel(): ViewModel() {
+class LoginViewModel(
+    private val auth: FirebaseAuth
+): ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginScreenUiState())
     val uiState: StateFlow<LoginScreenUiState> = _uiState.asStateFlow()
@@ -38,8 +42,79 @@ class LoginViewModel(): ViewModel() {
         }
     }
 
+    // ESTADO FIREBASE LOGIN:
+    // ✓ FirebaseAuth inyectado via lambda factory en NavigationRoot
+    // ✓ signInWithEmailAndPassword conectado con username/password del UiState
+    // ✓ isLoading activado antes de la llamada y desactivado al completar
+    // ✓ onSuccess invocado con el email del usuario logado
+    // ✓ isLoginError actualizado en UiState cuando falla
+    // TODO: Mover la llamada a Firebase dentro de viewModelScope.launch (actualmente corre en el hilo de Firebase, no en corrutinas)
+    // TODO: Conectar onUserLogin en NavigationRoot para que llame a login() pasando el backStack como onSuccess
+    // TODO: Implementar registerUser() con auth.createUserWithEmailAndPassword (ver código comentado al final)
+    // TODO: Mostrar el error isLoginError en la UI (LoginScreen) con un mensaje o snackbar
+    // TODO: Resetear isLoginError a false cuando el usuario empiece a escribir de nuevo
     fun login(onSuccess: (String) -> Unit) {
-        //TODO llama a FirebaseAuth.getInstance().signInWithEmailAndPassword(...) dentro de viewModelScope.launch, gestiona loading/error
+
+        _uiState.update { it.copy(isLoading = true) }
+
+
+        val username = _uiState.value.username
+        val password = _uiState.value.password
+
+        auth.signInWithEmailAndPassword(
+            username,
+            password
+        ).addOnCompleteListener { task ->
+            _uiState.update { it.copy(isLoading = false) }
+            if(task.isSuccessful) {
+                Log.i("Login button", "User logged: ${auth.currentUser?.email}")
+                onSuccess(auth.currentUser?.email ?: _uiState.value.username)
+            } else {
+                Log.i("Login button", "User login failed: ${task.exception.toString()}")
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        isLoginError = true
+                    )
+                }
+            }
+        }
     }
 
+
+
+    /*
+
+
+    fun registerUser() {
+        auth.createUserWithEmailAndPassword(
+            _userName.value.toString(),
+            _password.value.toString()
+        ).addOnCompleteListener { result ->
+            Log.i(
+                "Register button",
+                if (result.isSuccessful)
+                    "User registered with ID: ${auth.currentUser?.uid}"
+                else
+                    "Registry failed ${result.exception.toString()}"
+            )
+        }
+    }
+
+    fun loginUser() {
+        auth.signInWithEmailAndPassword(
+            _userName.value.toString(),
+            _password.value.toString()
+        ).addOnCompleteListener {
+            if(it.isSuccessful) {
+                Log.i("Login button", "User logged: ${auth.currentUser?.email}")
+                navigateToHome(_userName.value.toString())
+            } else {
+                Log.i("Login button", "User login failed: ${it.exception.toString()}")
+                _isLoginError.value = true
+            }
+        }
+    }
+
+
+     */
 }
