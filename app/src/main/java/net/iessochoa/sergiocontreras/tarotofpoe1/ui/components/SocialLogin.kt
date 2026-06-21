@@ -31,7 +31,7 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 fun SocialLogin() {
     Row(
         modifier = Modifier.clickable {
-            // Acción para loguearse con Google
+            // TODO: Conectar con onGoogleLogin callback y llamar a loginViewModel.loginWithGoogle()
         },
         verticalAlignment = Alignment.CenterVertically
     ) {
