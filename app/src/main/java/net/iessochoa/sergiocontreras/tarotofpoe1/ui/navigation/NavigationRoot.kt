@@ -55,9 +55,13 @@ fun NavigationRoot(
                     uiState = loginUiState,
                     onUsernameChange = loginViewModel::onUsernameChange, //Esto es lo mismo que{ loginViewModel.onUsernameChange(it) }
                     onPasswordChange = loginViewModel::onPasswordChange,
-                    onUserLogin = { backStack.add(Home(loginUiState.username)) },
-                    // TODO: Conectar onUserLogin en NavigationRoot para que llame a login() pasando el backStack como onSuccess
-                    //TODO: Falta aquí gestionar el Firebase
+                    onUserLogin = {
+                        loginViewModel.login(
+                            onSuccess = {  email ->
+                                backStack.add(Home(email))
+                            }
+                        )
+                    },
                     onUserRegister = { /* TODO Handle registration logic */ },
                 )
             }

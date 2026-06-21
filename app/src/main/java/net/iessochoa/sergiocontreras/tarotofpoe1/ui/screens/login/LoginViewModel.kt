@@ -49,7 +49,7 @@ class LoginViewModel(
     // ✓ isLoading activado antes de la llamada y desactivado al completar
     // ✓ onSuccess invocado con el email del usuario logado
     // ✓ isLoginError actualizado en UiState cuando falla
-    // TODO: Conectar onUserLogin en NavigationRoot para que llame a login() pasando el backStack como onSuccess
+    // ✓ onUserLogin conectado en NavigationRoot llamando a login() con email real de Firebase
     // TODO: Implementar registerUser() con auth.createUserWithEmailAndPassword (ver código comentado al final)
     // TODO: Mostrar el error isLoginError en la UI (LoginScreen) con un mensaje o snackbar
     // TODO: Resetear isLoginError a false cuando el usuario empiece a escribir de nuevo
