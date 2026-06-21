@@ -49,6 +49,7 @@ class LoginViewModel(
     // ✓ FirebaseAuth inyectado via lambda factory en NavigationRoot
     // ✓ signInWithEmailAndPassword conectado con username/password del UiState
     // ✓ isLoading activado antes de la llamada y desactivado al completar
+    // TODO: Usar isLoading en LoginScreen para deshabilitar botones o mostrar CircularProgressIndicator mientras Firebase responde
     // ✓ onSuccess invocado con el email del usuario logado
     // ✓ isLoginError actualizado en UiState cuando falla
     // ✓ onUserLogin conectado en NavigationRoot llamando a login() con email real de Firebase
