@@ -62,7 +62,9 @@ fun NavigationRoot(
                             }
                         )
                     },
-                    onUserRegister = { /* TODO Handle registration logic */ },
+                    onUserRegister = { loginViewModel.registerUser { email ->
+                        backStack.add(Home(email))
+                    } },
                 )
             }
             entry<Home> { key ->

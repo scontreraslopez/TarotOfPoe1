@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
@@ -63,7 +62,10 @@ fun Password(password: String, isLoginError: Boolean, updatePassword: (String) -
         },
         visualTransformation = if (passVisibility) PasswordVisualTransformation()
         else VisualTransformation.None,
-        isError = isLoginError
+        isError = isLoginError,
+        supportingText = {
+            if (isLoginError) Text("Email o contraseña incorrectos")
+        }
     )
 }
 

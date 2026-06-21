@@ -29,7 +29,8 @@ class LoginViewModel(
         _uiState.update { currentState ->
             currentState.copy(
                 username = value,
-                isLoginEnabled = value.isNotBlank() && currentState.password.isNotBlank()
+                isLoginEnabled = value.isNotBlank() && currentState.password.isNotBlank(),
+                isLoginError = false // Al escribir se cancela el error
             )
         }
     }
@@ -38,7 +39,8 @@ class LoginViewModel(
         _uiState.update { currentState ->
             currentState.copy(
                 password = value,
-                isLoginEnabled = currentState.username.isNotBlank() && value.isNotBlank()
+                isLoginEnabled = currentState.username.isNotBlank() && value.isNotBlank(),
+                isLoginError = false // Al escribir se cancela el error
             )
         }
     }
@@ -51,8 +53,8 @@ class LoginViewModel(
     // ✓ isLoginError actualizado en UiState cuando falla
     // ✓ onUserLogin conectado en NavigationRoot llamando a login() con email real de Firebase
     // ✓ registerUser() implementado con auth.createUserWithEmailAndPassword
-    // TODO: Mostrar el error isLoginError en la UI (LoginScreen) con un mensaje o snackbar
-    // TODO: Resetear isLoginError a false cuando el usuario empiece a escribir de nuevo
+    // ✓ isLoginError mostrado en la UI con supportingText en PasswordField
+    // ✓ isLoginError reseteado a false al escribir en username o password
     fun login(onSuccess: (String) -> Unit) {
 
         _uiState.update { it.copy(isLoading = true) }
@@ -89,7 +91,7 @@ class LoginViewModel(
 
     // ✓ onSuccess recibe el email del usuario registrado y se invoca al completar
     // ✓ isLoginError actualizado en UiState cuando el registro falla
-    // TODO: esto todavía no se está usando
+    // ✓ onUserRegister conectado en NavigationRoot llamando a registerUser() con email real de Firebase
     fun registerUser(onSuccess: (String) -> Unit) {
 
         _uiState.update { it.copy(isLoading = true) }
