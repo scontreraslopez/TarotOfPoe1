@@ -22,6 +22,7 @@ fun RegisterButton(
     onRegisterButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // TODO: deshabilitar el botón (enabled = false) si email o password están vacíos
     Button(
         modifier = modifier,
         onClick = {
