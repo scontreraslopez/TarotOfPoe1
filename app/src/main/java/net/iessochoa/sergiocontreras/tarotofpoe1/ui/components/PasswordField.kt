@@ -57,7 +57,7 @@ fun Password(password: String, isLoginError: Boolean, updatePassword: (String) -
             Icon(
                 painter = painterResource(eyeIcon),
                 contentDescription = if (passVisibility) "Password is visible"
-                else "Passowrd is hidden",
+                else "Password is hidden",
                 modifier = Modifier.clickable { passVisibility = !passVisibility })
         },
         visualTransformation = if (passVisibility) PasswordVisualTransformation()
