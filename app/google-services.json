@@ -12,7 +12,12 @@
           "package_name": "net.iessochoa.sergiocontreras.tarotofpoe1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "597040288188-m8dm412nqnv5b1gl1asqatp9hvvit7s5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBa1L2dnv0zL0lG9Ipa56Y42nH6RhswR5c"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597040288188-m8dm412nqnv5b1gl1asqatp9hvvit7s5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
