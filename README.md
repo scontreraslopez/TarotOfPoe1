@@ -2,6 +2,17 @@
 
 > **Status:** Work In Progress (WIP)
 
+## Disclaimer honesto
+
+Seré sincero: este proyecto terminó **a contrarreloj**. La convocatoria extraordinaria de FP no daba tregua y, hacia el final, hubo que **embuchar bastantes cosas más mal que bien**, sin el cuidado que merecían. Funciona y cumple lo de mínimos, pero hay decisiones que sé que están a medio hacer: el stack de **Room** lo monté con prisa, las **imágenes en Cloudflare** se quedaron sin enlazar (`artUrl` casi siempre `null`), y varias pantallas son aún placeholders.
+
+Me hubiera gustado cuidarlo más, porque la idea me parecía bonita. Donde sí he trabajado estas cuestiones con calma:
+
+- **Room** bien hecho → [MercadonaDBApp](https://github.com/scontreraslopez/MercadonaDBApp)
+- **Retrofit** bien hecho → [codex-of-rivia](https://github.com/scontreraslopez/codex-of-rivia) (y algún otro privado)
+
+Las circunstancias mandan. Queda como está, con sus costuras a la vista y los `TODO` señalando lo que faltó.
+
 Aplicación Android que actúa como **catálogo / browser de las Divination Cards de Path of Exile 1**. Permite explorar las cartas, consultar sus recompensas y detalles asociados.
 
 Las Divination Cards tienen un arte espectacular, son muchas y es importante saber como conseguirlas.
@@ -20,7 +31,7 @@ Proyecto desarrollado en el marco del curso **"Programación Avanzada con Jetpac
 - Firebase Auth + Firestore
 - **Retrofit** + kotlinx.serialization _(consumiendo el Worker de Cloudflare)_
 - **Coil 3** para carga de imágenes
-- **Room** (KSP) para persistencia local _(importado, integración TODO)_
+- **Room** (KSP) para persistencia local de favoritos
 
 ## Acceso / Login
 
@@ -62,5 +73,17 @@ En desarrollo activo. Funcionalidades y UI sujetas a cambios.
 
 **Hecho:**
 
+- **Login** con Firebase Auth (email/contraseña), registro y usuario de pruebas.
+- **Listado y detalle** de cartas vía Retrofit (Worker de Cloudflare) con fallback offline.
 - **Retrofit** → consume el endpoint `/cards` del Worker de Cloudflare, con fallback a `DummyCardRepository`.
 - **Room** → persiste las cartas favoritas en local (`FavoriteCardEntity` + `FavoriteCardDao` + `AppDatabase`). El botón de favorito (corazón) en el detalle marca/desmarca y se mantiene entre reinicios.
+- **Pestaña Favorites** → lista reactiva de las cartas marcadas (se actualiza sola al togglear el corazón).
+- **Teclado en login** → `imeAction` Next/Done en los campos de usuario y contraseña.
+
+**Pendiente (TODO):**
+
+- **Pantalla Profile** → mostrar datos del usuario y botón de logout (ahora es un placeholder).
+- **Login con Google** → `loginWithGoogle()` con Google Sign-In + usar `isLoading` (spinner) durante la petición.
+- **Imágenes de carta** → poblar `artUrl` en el Worker de Cloudflare y mostrarlas con Coil en lista y detalle.
+- **Avisar del modo offline** → notificar en la UI cuando se cae al fallback (`DummyCardRepository`).
+- **Validación de formularios** → deshabilitar el botón de registro si email/contraseña están vacíos.

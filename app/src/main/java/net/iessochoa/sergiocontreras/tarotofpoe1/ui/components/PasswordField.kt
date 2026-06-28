@@ -40,7 +40,7 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 fun Password(password: String, isLoginError: Boolean, updatePassword: (String) -> Unit) {
 
     var passVisibility by rememberSaveable { mutableStateOf(false) }
-    val focusManager = LocalFocusManager.current // TODO: Esto del focusManager es algo que hay que investigar mejor.
+    val focusManager = LocalFocusManager.current // TODO: Esto del focusManager es algo que hay que investigar mejor
     TextField(
         modifier = Modifier
             .fillMaxWidth()
