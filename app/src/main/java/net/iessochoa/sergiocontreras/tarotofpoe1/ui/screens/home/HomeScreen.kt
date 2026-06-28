@@ -76,6 +76,9 @@ fun HomeScreen(
                 }
 
                 AppDestinations.FAVORITES -> Placeholder("Favorites", userName, contentModifier)
+                // TODO: implementar la pantalla de Profile (perfil + logout).
+                //  - Mostrar datos del usuario (email/nombre de FirebaseAuth.currentUser).
+                //  - Botón de logout: FirebaseAuth.getInstance().signOut() y navegar de vuelta a Login.
                 AppDestinations.PROFILE -> Placeholder("Profile", userName, contentModifier)
             }
         }

@@ -20,6 +20,9 @@ data class CardDto(
     val reward: String,
     val flavourText: String,
     val acquisition: AcquisitionDto,
+    // TODO: el Worker de Cloudflare aún devuelve artUrl = null en la mayoría de cartas.
+    //  Pendiente: poblar las URLs de imagen en el Worker y consumirlas aquí con Coil
+    //  (AsyncImage) en la lista y el detalle de carta.
     val artUrl: String? = null,
 )
 

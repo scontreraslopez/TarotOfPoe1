@@ -23,6 +23,9 @@ class RetrofitCardRepository(
     override suspend fun getCards(): List<DivinationCard> = try {
         api.getCards().map { it.toDomain() }
     } catch (e: Exception) {
+        // TODO: avisar a la UI cuando caemos al fallback (datos de ejemplo, no reales).
+        //  Ej.: exponer un flag/estado "usandoDatosOffline" o emitir un evento (snackbar)
+        //  para que el usuario sepa que está viendo el DummyCardRepository y no el Worker.
         fallback.getCards()
     }
 
