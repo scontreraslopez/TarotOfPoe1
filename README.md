@@ -9,7 +9,7 @@ Seré sincero: este proyecto terminó **a contrarreloj**. La convocatoria extrao
 Me hubiera gustado cuidarlo más, porque la idea me parecía bonita. Donde sí he trabajado estas cuestiones con calma:
 
 - **Room** bien hecho → [MercadonaDBApp](https://github.com/scontreraslopez/MercadonaDBApp)
-- **Retrofit** bien hecho → [codex-of-rivia](https://github.com/scontreraslopez/codex-of-rivia) (y algún otro privado)
+- **Retrofit** "bien" hecho → [codex-of-rivia](https://github.com/scontreraslopez/codex-of-rivia) (y algún otro privado). Bueno digo bien pero hago un Singleton para saltarme el DI, que está explicado fatal en los codelabs.
 
 Las circunstancias mandan. Queda como está, con sus costuras a la vista y los `TODO` señalando lo que faltó.
 
