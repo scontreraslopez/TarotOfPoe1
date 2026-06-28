@@ -12,4 +12,5 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.domain.model.DivinationCard
 data class CardDetailUiState(
     val card: DivinationCard? = null,
     val isLoading: Boolean = true,
+    val isFavorite: Boolean = false,
 )

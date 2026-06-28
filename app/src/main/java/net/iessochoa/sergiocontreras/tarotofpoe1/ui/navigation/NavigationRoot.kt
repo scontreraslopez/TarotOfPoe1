@@ -11,6 +11,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.google.firebase.auth.FirebaseAuth
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.RetrofitCardRepository
+import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.RoomFavoritesRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Detail
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Home
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Login
@@ -40,6 +41,7 @@ fun NavigationRoot(
 
     val context = LocalContext.current
     val repository = remember { RetrofitCardRepository.create(context) } //TODO: Documentar las ventajas de remember aquí
+    val favoritesRepository = remember { RoomFavoritesRepository.create(context) }
     val backStack = rememberNavBackStack(Login)
 
     /*
@@ -79,7 +81,11 @@ fun NavigationRoot(
             entry<Detail> { key ->
                 val cardDetailViewModel: CardDetailViewModel = viewModel(
                     key = key.cardId,
-                    factory = CardDetailViewModel.provideFactory(repository, key.cardId)
+                    factory = CardDetailViewModel.provideFactory(
+                        repository,
+                        favoritesRepository,
+                        key.cardId,
+                    )
                 )
 
                 val cardDetailUiState by cardDetailViewModel.uiState.collectAsStateWithLifecycle()
@@ -87,6 +93,7 @@ fun NavigationRoot(
                 CardDetailScreen(
                     uiState = cardDetailUiState,
                     onBack = { backStack.removeAt(backStack.lastIndex) },
+                    onToggleFavorite = cardDetailViewModel::toggleFavorite,
                 )
             }
         }

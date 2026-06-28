@@ -20,9 +20,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -43,6 +40,7 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 fun CardDetailScreen(
     uiState: CardDetailUiState,
     onBack: () -> Unit,
+    onToggleFavorite: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -60,15 +58,12 @@ fun CardDetailScreen(
                     }
                 },
                 actions = {
-                    // TODO ROOM: sustituir este estado en memoria por el favorito real.
-                    //  - isFavorite vendrá del ViewModel (consulta al FavoriteCardDao).
-                    //  - onToggle llamará a addFavorite(card.id) / removeFavorite(card.id).
-                    //  Solo lo mostramos si hay carta cargada.
-                    uiState.card?.let { card ->
-                        var isFavorite by remember(card.id) { mutableStateOf(false) }
+                    // Solo mostramos el corazón si hay carta cargada.
+                    // El favorito se persiste en Room a través del ViewModel.
+                    if (uiState.card != null) {
                         FavoriteToggleButton(
-                            isFavorite = isFavorite,
-                            onToggle = { isFavorite = !isFavorite },
+                            isFavorite = uiState.isFavorite,
+                            onToggle = onToggleFavorite,
                         )
                     }
                 },
@@ -180,7 +175,8 @@ private fun CardDetailScreenPreview() {
                 card = DivinationCardSamples.all.firstOrNull { it.id == cardId },
                 isLoading = false,
             ),
-            onBack = {}
+            onBack = {},
+            onToggleFavorite = {},
         )
     }
 }
