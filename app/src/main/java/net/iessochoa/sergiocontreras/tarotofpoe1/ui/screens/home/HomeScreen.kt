@@ -20,16 +20,22 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.R
 import net.iessochoa.sergiocontreras.tarotofpoe1.domain.repository.CardRepository
+import net.iessochoa.sergiocontreras.tarotofpoe1.domain.repository.FavoritesRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListScreen
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListUiState
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.cardlist.CardListViewModel
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.favorites.FavoritesScreen
+import net.iessochoa.sergiocontreras.tarotofpoe1.ui.screens.favorites.FavoritesViewModel
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun HomeScreen(
     userName: String,
     repository: CardRepository,
+    favoritesRepository: FavoritesRepository,
     onCardClick: (String) -> Unit,
 ) {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
@@ -75,7 +81,18 @@ fun HomeScreen(
                     )
                 }
 
-                AppDestinations.FAVORITES -> Placeholder("Favorites", userName, contentModifier)
+                AppDestinations.FAVORITES -> {
+                    val favoritesViewModel: FavoritesViewModel = viewModel(
+                        factory = FavoritesViewModel.provideFactory(repository, favoritesRepository)
+                    )
+                    val favoritesUiState by favoritesViewModel.uiState.collectAsStateWithLifecycle()
+
+                    FavoritesScreen(
+                        uiState = favoritesUiState,
+                        onCardClick = onCardClick,
+                        modifier = contentModifier,
+                    )
+                }
                 // TODO: implementar la pantalla de Profile (perfil + logout).
                 //  - Mostrar datos del usuario (email/nombre de FirebaseAuth.currentUser).
                 //  - Botón de logout: FirebaseAuth.getInstance().signOut() y navegar de vuelta a Login.
@@ -104,10 +121,17 @@ enum class AppDestinations(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
+    // Fake en memoria para el preview; en la app real es RoomFavoritesRepository.
+    val previewFavorites = object : FavoritesRepository {
+        override fun observeFavoriteIds(): Flow<List<String>> = flowOf(emptyList())
+        override fun observeIsFavorite(cardId: String): Flow<Boolean> = flowOf(false)
+        override suspend fun setFavorite(cardId: String, favorite: Boolean) {}
+    }
     TarotOfPoe1Theme {
         HomeScreen(
             userName = "Sergio",
             repository = DummyCardRepository(),
+            favoritesRepository = previewFavorites,
             onCardClick = {},
         )
     }

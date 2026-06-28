@@ -75,6 +75,7 @@ fun NavigationRoot(
                 HomeScreen(
                     userName = key.name,
                     repository = repository,
+                    favoritesRepository = favoritesRepository,
                     onCardClick = { cardId -> backStack.add(Detail(cardId)) },
                 )
             }
