@@ -2,12 +2,14 @@ package net.iessochoa.sergiocontreras.tarotofpoe1.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.Spacing
@@ -39,6 +41,10 @@ fun UserName(userName: String, isLoginError: Boolean, updateUserName: (String) -
                 fontStyle = FontStyle.Italic
             )
         },
+        singleLine = true,
+        // "Siguiente": el teclado muestra la flecha de avanzar y, por defecto,
+        // Compose mueve el foco al siguiente campo (la contraseña).
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         isError = isLoginError
     )
 }

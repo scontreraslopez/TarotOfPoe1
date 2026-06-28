@@ -3,6 +3,8 @@ package net.iessochoa.sergiocontreras.tarotofpoe1.ui.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -13,9 +15,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +40,7 @@ import net.iessochoa.sergiocontreras.tarotofpoe1.ui.theme.TarotOfPoe1Theme
 fun Password(password: String, isLoginError: Boolean, updatePassword: (String) -> Unit) {
 
     var passVisibility by rememberSaveable { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current // TODO: Esto del focusManager es algo que hay que investigar mejor.
     TextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,6 +68,16 @@ fun Password(password: String, isLoginError: Boolean, updatePassword: (String) -
         },
         visualTransformation = if (passVisibility) PasswordVisualTransformation()
         else VisualTransformation.None,
+        singleLine = true,
+        // Último campo del formulario: teclado de password + acción "Done",
+        // que cierra el teclado al pulsarla.
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password,
+            imeAction = ImeAction.Done,
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = { focusManager.clearFocus() }
+        ),
         isError = isLoginError,
         supportingText = {
             if (isLoginError) Text("Email o contraseña incorrectos")
