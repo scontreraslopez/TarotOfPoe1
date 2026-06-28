@@ -3,13 +3,14 @@ package net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.google.firebase.auth.FirebaseAuth
-import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.DummyCardRepository
+import net.iessochoa.sergiocontreras.tarotofpoe1.data.repository.RetrofitCardRepository
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Detail
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Home
 import net.iessochoa.sergiocontreras.tarotofpoe1.ui.navigation.Routes.Login
@@ -37,7 +38,8 @@ fun NavigationRoot(
 
     val loginUiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
-    val repository = remember { DummyCardRepository() }
+    val context = LocalContext.current
+    val repository = remember { RetrofitCardRepository.create(context) } //TODO: Documentar las ventajas de remember aquí
     val backStack = rememberNavBackStack(Login)
 
     /*
